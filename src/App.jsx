@@ -5,6 +5,8 @@ import BurnPadPreview from './components/BurnPadPreview'
 import { jsPDF } from 'jspdf'
 import html2canvas from 'html2canvas'
 import './App.css'
+import { storage } from './firebase'
+import { ref, uploadString, getDownloadURL } from 'firebase/storage'
 
 const AppContainer = styled.div`
   width: 100%;
@@ -284,7 +286,6 @@ function App() {
     try {
       setIsGenerating(true);
       
-      // Get the preview element using the PreviewWrapper ref
       const previewElement = document.querySelector('.preview-container');
       
       if (!previewElement) {
@@ -296,7 +297,7 @@ function App() {
         scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
-        logging: true, // Enable logging for debugging
+        logging: true,
         imageTimeout: 0,
         removeContainer: true,
         allowTaint: true
@@ -355,16 +356,38 @@ function App() {
       const textX = (pageWidth - textWidth) / 2;
       pdf.text(specs, textX, pageHeight - 10);
 
-      const fileName = `burn-pad-mockup${title ? '-' + title.toLowerCase().replace(/\s+/g, '-') : ''}.pdf`;
-      pdf.save(fileName);
+      // Generate PDF data
+      const pdfData = await pdf.output('datauristring');
+      
+      // Create a unique filename
+      const fileName = `mockups/${title || 'untitled'}-${Date.now()}.pdf`;
+      
+      // Upload to Firebase Storage
+      try {
+        const storageRef = ref(storage, fileName);
+        console.log('Uploading to Firebase:', fileName);
+        await uploadString(storageRef, pdfData, 'data_url');
+        console.log('Upload successful');
+        
+        // Get the download URL
+        const downloadURL = await getDownloadURL(storageRef);
+        console.log('Download URL:', downloadURL);
+        
+        // Save locally
+        pdf.save(`burnpad-mockup.pdf`);
 
-      // Add to generated files list
-      const newFile = {
-        name: fileName,
-        date: new Date().toLocaleString(),
-        data: await pdf.output('datauristring')
-      };
-      setGeneratedFiles(prev => [newFile, ...prev]);
+        // Add to generated files list with Firebase URL
+        const newFile = {
+          name: fileName,
+          date: new Date().toLocaleString(),
+          url: downloadURL
+        };
+        setGeneratedFiles(prev => [newFile, ...prev]);
+      } catch (uploadError) {
+        console.error('Firebase upload error:', uploadError);
+        // Still save locally even if Firebase upload fails
+        pdf.save(`burnpad-mockup.pdf`);
+      }
 
     } catch (error) {
       console.error('Error generating PDF:', error);
