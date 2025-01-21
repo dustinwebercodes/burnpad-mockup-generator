@@ -103,22 +103,21 @@ const PreviewSection = styled.div`
   }
 
   @media (max-width: 480px) {
-    transform: scale(0.45);
-    margin-top: -100px;
-    margin-bottom: -100px;
+    transform: scale(0.65);
+    margin: -50px auto;
   }
 `;
 
 const PreviewWrapper = styled.div`
-  transform-origin: top left;
+  transform-origin: top center;
   
   @media (max-width: 768px) {
-    transform: scale(0.5);
+    transform: none;
     margin: 0 auto;
   }
 
   @media (max-width: 480px) {
-    transform: scale(0.35);
+    transform: none;
   }
 `;
 
