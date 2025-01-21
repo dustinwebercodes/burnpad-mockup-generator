@@ -7,6 +7,7 @@ import html2canvas from 'html2canvas'
 import './App.css'
 
 const AppContainer = styled.div`
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -17,7 +18,6 @@ const AppContainer = styled.div`
   @media (max-width: 768px) {
     padding: 10px;
     gap: 15px;
-    max-width: 100%;
   }
 `;
 
@@ -29,28 +29,26 @@ const MainContent = styled.main`
 
 const TopSection = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 2rem;
   align-items: flex-start;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    width: 100%;
+    gap: 1rem;
   }
 `;
 
 const ControlPanel = styled.div`
+  flex: 0 0 350px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  min-width: 300px;
+  gap: 1rem;
 
   @media (max-width: 768px) {
-    min-width: unset;
+    flex: none;
     width: 100%;
     max-width: 400px;
-    margin: 0 auto;
   }
 `;
 
@@ -92,32 +90,30 @@ const PreviewSection = styled.div`
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: visible;
+  align-items: flex-start;
+  min-width: 0; // Important for flex item sizing
+  padding: 1rem;
 
   @media (max-width: 768px) {
     width: 100%;
-    margin: 0 auto;
-    transform: scale(0.6);
-    transform-origin: top center;
-  }
-
-  @media (max-width: 480px) {
-    transform: scale(0.35);
-    margin: -100px auto;
+    padding: 0;
   }
 `;
 
 const PreviewWrapper = styled.div`
-  transform-origin: top center;
-  
+  width: 100%;
+  max-width: 740px;
+  margin: 0 auto;
+
   @media (max-width: 768px) {
-    transform: none;
-    margin: 0 auto;
+    width: 90vw;
+    transform: scale(0.9);
+    transform-origin: top center;
   }
 
   @media (max-width: 480px) {
-    transform: none;
+    width: 95vw;
+    transform: scale(0.8);
   }
 `;
 

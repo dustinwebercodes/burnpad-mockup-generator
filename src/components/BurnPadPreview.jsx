@@ -39,20 +39,15 @@ const getStitchColor = (color) => {
 };
 
 const PreviewContainer = styled.div`
-  width: 740px;
-  margin: 0 auto;
+  width: 100%;
   position: relative;
   background-color: white;
-
-  @media (max-width: 768px) {
-    width: 740px;
-    margin: 0 auto;
-  }
+  aspect-ratio: 740 / 775; // Maintain the original aspect ratio
 `;
 
 const CorduraSection = styled.div`
-  width: 740px;
-  height: 450px;
+  width: 100%;
+  height: 58%; // 450px / 775px ≈ 58%
   position: relative;
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
@@ -89,8 +84,8 @@ const CorduraLines = styled.div`
 `;
 
 const BaseSection = styled.div`
-  width: 740px;
-  height: 325px;
+  width: 100%;
+  height: 42%; // 325px / 775px ≈ 42%
   position: relative;
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
