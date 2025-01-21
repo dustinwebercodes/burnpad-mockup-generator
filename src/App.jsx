@@ -98,13 +98,13 @@ const PreviewSection = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     margin: 0 auto;
-    transform: scale(0.8);
+    transform: scale(0.6);
     transform-origin: top center;
   }
 
   @media (max-width: 480px) {
-    transform: scale(0.65);
-    margin: -50px auto;
+    transform: scale(0.35);
+    margin: -100px auto;
   }
 `;
 
