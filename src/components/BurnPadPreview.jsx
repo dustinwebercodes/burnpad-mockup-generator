@@ -172,7 +172,7 @@ const LogoContainer = styled.div`
 
 const BurnPadPreview = ({ corduraColor, baseColor, logo }) => {
   return (
-    <PreviewContainer>
+    <PreviewContainer className="preview-container">
       <CorduraSection color={corduraColor}>
         <CorduraLines color={corduraColor} />
       </CorduraSection>

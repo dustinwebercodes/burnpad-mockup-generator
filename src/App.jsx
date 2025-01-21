@@ -284,18 +284,22 @@ function App() {
     try {
       setIsGenerating(true);
       
-      const previewElement = document.querySelector('#burn-pad-preview');
+      // Get the preview element using the PreviewWrapper ref
+      const previewElement = document.querySelector('.preview-container');
       
+      if (!previewElement) {
+        console.error('Preview element not found');
+        return;
+      }
+
       const canvas = await html2canvas(previewElement, {
         scale: 2,
         useCORS: true,
         backgroundColor: '#ffffff',
-        logging: false,
+        logging: true, // Enable logging for debugging
         imageTimeout: 0,
         removeContainer: true,
-        allowTaint: true,
-        width: previewElement.offsetWidth + 60,
-        height: previewElement.offsetHeight + 60
+        allowTaint: true
       });
 
       // Create PDF with A4 landscape
@@ -308,7 +312,7 @@ function App() {
       // A4 dimensions
       const pageWidth = 297;
       const pageHeight = 210;
-      const margin = 30;
+      const margin = 20;
 
       // Calculate image dimensions
       const maxWidth = pageWidth - (margin * 2);
