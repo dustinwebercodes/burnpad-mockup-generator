@@ -7,15 +7,17 @@ import html2canvas from 'html2canvas'
 import './App.css'
 
 const AppContainer = styled.div`
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem;
-  background-color: #f8f9fa;
-  min-height: 100vh;
-  overflow-x: hidden;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   @media (max-width: 768px) {
-    padding: 0.5rem;
+    padding: 10px;
+    gap: 15px;
+    max-width: 100%;
   }
 `;
 
@@ -26,42 +28,50 @@ const MainContent = styled.main`
 `;
 
 const TopSection = styled.div`
-  display: grid;
-  grid-template-columns: minmax(350px, 400px) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: start;
-
-  @media (max-width: 1200px) {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
 
   @media (max-width: 768px) {
-    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
   }
 `;
 
 const ControlPanel = styled.div`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 300px;
 
   @media (max-width: 768px) {
-    padding: 1rem;
-    border-radius: 0;
+    min-width: unset;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
   }
 `;
 
 const Section = styled.section`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
 
   h3 {
     color: #2c3e50;
     margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 0.5rem;
   }
 `;
 
 const FileUpload = styled.div`
+  width: 100%;
+  
   input {
     width: 100%;
     padding: 0.5rem;
@@ -79,24 +89,36 @@ const FileUpload = styled.div`
 `;
 
 const PreviewSection = styled.div`
-  background-color: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: visible;
 
-  @media (max-width: 1200px) {
-    margin-top: 1rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    transform-origin: top center;
   }
 
+  @media (max-width: 480px) {
+    transform: scale(0.45);
+    margin-top: -100px;
+    margin-bottom: -100px;
+  }
+`;
+
+const PreviewWrapper = styled.div`
+  transform-origin: top left;
+  
   @media (max-width: 768px) {
-    padding: 1rem;
-    border-radius: 0;
-    
-    #burn-pad-preview {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
+    transform: scale(0.5);
+    margin: 0 auto;
+  }
+
+  @media (max-width: 480px) {
+    transform: scale(0.35);
   }
 `;
 
@@ -105,7 +127,7 @@ const Input = styled.input`
   padding: 0.8rem;
   border: 1px solid #e1e4e8;
   border-radius: 6px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-size: 1rem;
   background-color: white;
   color: #000000;
@@ -128,6 +150,7 @@ const Button = styled.button`
   font-weight: 600;
   width: 100%;
   transition: all 0.2s ease;
+  margin-bottom: 1rem;
 
   &:hover {
     background-color: #333333;
@@ -136,6 +159,11 @@ const Button = styled.button`
 
   &:active {
     transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-bottom: 0.5rem;
   }
 `;
 
@@ -417,15 +445,13 @@ function App() {
           </ControlPanel>
 
           <PreviewSection>
-            <div style={{ backgroundColor: 'white', padding: '20px' }}>
-              <div id="burn-pad-preview">
-                <BurnPadPreview
-                  corduraColor={corduraColor}
-                  baseColor={baseColor}
-                  logo={burnPadLogo}
-                />
-              </div>
-            </div>
+            <PreviewWrapper>
+              <BurnPadPreview
+                corduraColor={corduraColor}
+                baseColor={baseColor}
+                logo={burnPadLogo}
+              />
+            </PreviewWrapper>
           </PreviewSection>
         </TopSection>
       </MainContent>

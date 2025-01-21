@@ -43,6 +43,11 @@ const PreviewContainer = styled.div`
   margin: 0 auto;
   position: relative;
   background-color: white;
+
+  @media (max-width: 768px) {
+    width: 740px;
+    margin: 0 auto;
+  }
 `;
 
 const CorduraSection = styled.div`
@@ -52,6 +57,11 @@ const CorduraSection = styled.div`
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
   border-radius: 5px 5px 0 0;
+  
+  @media (max-width: 768px) {
+    width: 740px;
+    height: 450px;
+  }
 `;
 
 const CorduraLines = styled.div`

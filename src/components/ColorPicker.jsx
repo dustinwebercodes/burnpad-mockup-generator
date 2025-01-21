@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
 const ColorPickerContainer = styled.div`
+  width: 100%;
+  
   h4 {
     color: #2c3e50;
     margin-bottom: 1rem;
     font-size: 1.1rem;
+
+    @media (max-width: 768px) {
+      text-align: center;
+      margin-bottom: 0.8rem;
+    }
   }
 `;
 
@@ -16,6 +23,19 @@ const ColorGrid = styled.div`
   padding: 0.5rem;
   background-color: #f8fafc;
   border-radius: 8px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(6, 40px);
+    gap: 6px;
+    padding: 0.4rem;
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(4, 40px);
+    gap: 4px;
+  }
 `;
 
 const SwatchContainer = styled.div`
