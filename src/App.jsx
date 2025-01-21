@@ -6,7 +6,7 @@ import { jsPDF } from 'jspdf'
 import html2canvas from 'html2canvas'
 import './App.css'
 import { storage } from './firebase'
-import { ref, uploadString, getDownloadURL } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 const AppContainer = styled.div`
   width: 100%;
@@ -366,7 +366,13 @@ function App() {
       try {
         const storageRef = ref(storage, fileName);
         console.log('Uploading to Firebase:', fileName);
-        await uploadString(storageRef, pdfData, 'data_url');
+        
+        // Convert base64 to blob
+        const response = await fetch(pdfData);
+        const blob = await response.blob();
+        
+        // Upload blob
+        await uploadBytes(storageRef, blob);
         console.log('Upload successful');
         
         // Get the download URL
