@@ -5,8 +5,6 @@ import BurnPadPreview from './components/BurnPadPreview'
 import { jsPDF } from 'jspdf'
 import html2canvas from 'html2canvas'
 import './App.css'
-import { storage } from './firebase'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 const AppContainer = styled.div`
   width: 100%;
@@ -269,7 +267,6 @@ function App() {
   const [seatLogo, setSeatLogo] = useState(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [title, setTitle] = useState('')
-  const [generatedFiles, setGeneratedFiles] = useState([])
 
   const handleLogoUpload = (event) => {
     const file = event.target.files[0]
@@ -286,6 +283,9 @@ function App() {
     try {
       setIsGenerating(true);
       
+      // Create a timestamp for unique filenames
+      const timestamp = new Date().getTime();
+      
       const previewElement = document.querySelector('.preview-container');
       
       if (!previewElement) {
@@ -299,8 +299,12 @@ function App() {
         backgroundColor: '#ffffff',
         logging: true,
         imageTimeout: 0,
-        removeContainer: true,
-        allowTaint: true
+        removeContainer: false, // Changed to false to prevent DOM manipulation
+        allowTaint: true,
+        width: previewElement.offsetWidth + 4,
+        height: previewElement.offsetHeight + 4,
+        x: -2,
+        y: -2
       });
 
       // Create PDF with A4 landscape
@@ -356,60 +360,22 @@ function App() {
       const textX = (pageWidth - textWidth) / 2;
       pdf.text(specs, textX, pageHeight - 10);
 
-      // Generate PDF data
-      const pdfData = await pdf.output('datauristring');
-      
-      // Create a unique filename
-      const fileName = `mockups/${title || 'untitled'}-${Date.now()}.pdf`;
-      
-      // Upload to Firebase Storage
-      try {
-        const storageRef = ref(storage, fileName);
-        console.log('Uploading to Firebase:', fileName);
-        
-        // Convert base64 to blob
-        const response = await fetch(pdfData);
-        const blob = await response.blob();
-        
-        // Upload blob
-        await uploadBytes(storageRef, blob);
-        console.log('Upload successful');
-        
-        // Get the download URL
-        const downloadURL = await getDownloadURL(storageRef);
-        console.log('Download URL:', downloadURL);
-        
-        // Save locally
-        pdf.save(`burnpad-mockup.pdf`);
-
-        // Add to generated files list with Firebase URL
-        const newFile = {
-          name: fileName,
-          date: new Date().toLocaleString(),
-          url: downloadURL
-        };
-        setGeneratedFiles(prev => [newFile, ...prev]);
-      } catch (uploadError) {
-        console.error('Firebase upload error:', uploadError);
-        // Still save locally even if Firebase upload fails
-        pdf.save(`burnpad-mockup.pdf`);
-      }
+      // Save the PDF locally with timestamp to ensure unique filenames
+      pdf.save(`${title || 'burnpad'}-mockup-${timestamp}.pdf`);
 
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {
       setIsGenerating(false);
+      // Clean up any canvas elements that might have been created
+      const canvasElements = document.querySelectorAll('canvas');
+      canvasElements.forEach(canvas => {
+        if (canvas.parentNode && !canvas.parentNode.classList.contains('preview-container')) {
+          canvas.parentNode.removeChild(canvas);
+        }
+      });
     }
-  };
-
-  const downloadFile = (fileData) => {
-    const link = document.createElement('a');
-    link.href = fileData;
-    link.download = 'burn-pad-mockup.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  }
 
   return (
     <AppContainer>

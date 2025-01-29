@@ -43,6 +43,7 @@ const PreviewContainer = styled.div`
   position: relative;
   background-color: white;
   aspect-ratio: 740 / 775; // Maintain the original aspect ratio
+  padding: 2px; // Add small padding to prevent edge cutoff
 `;
 
 const CorduraSection = styled.div`
@@ -89,6 +90,7 @@ const BaseSection = styled.div`
   position: relative;
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
+  box-sizing: border-box; // Ensure border is included in width calculation
 `;
 
 const DashedLines = styled.div`
@@ -98,6 +100,7 @@ const DashedLines = styled.div`
   right: 30px;
   bottom: 30px;
   border: 2px dashed ${props => getStitchColor(props.color)};
+  box-sizing: border-box; // Ensure border is included in width calculation
 
   &::before, &::after {
     content: '';
@@ -105,6 +108,7 @@ const DashedLines = styled.div`
     top: 0;
     bottom: 0;
     border-left: 2px dashed ${props => getStitchColor(props.color)};
+    box-sizing: border-box; // Ensure border is included in width calculation
   }
 
   &::before {
