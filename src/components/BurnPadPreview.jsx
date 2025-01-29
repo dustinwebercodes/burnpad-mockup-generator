@@ -139,10 +139,10 @@ const DashedLines = styled.div`
   }
 
   @media (max-width: 768px) {
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
     border-width: 1.5px;
 
     &::before, &::after {
@@ -157,6 +157,7 @@ const HorizontalLines = styled.div`
   left: 30px;
   right: 30px;
   bottom: 0;
+  box-sizing: border-box;
 
   &::before {
     content: '';
@@ -177,19 +178,19 @@ const HorizontalLines = styled.div`
   }
 
   @media (max-width: 768px) {
-    left: 20px;
-    right: 20px;
+    left: 15px;
+    right: 15px;
 
     &::before, &::after {
       border-top-width: 1.5px;
     }
 
     &::before {
-      top: 40px;
+      top: 30px;
     }
 
     &::after {
-      top: 100px;
+      top: 75px;
     }
   }
 `;
@@ -202,9 +203,9 @@ const LastHorizontalLine = styled.div`
   border-top: 2px dashed ${props => getStitchColor(props.color)};
 
   @media (max-width: 768px) {
-    left: 20px;
-    right: 20px;
-    top: 160px;
+    left: 15px;
+    right: 15px;
+    top: 120px;
     border-top-width: 1.5px;
   }
 `;
@@ -227,10 +228,10 @@ const LogoContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    top: 30px;
-    right: 30px;
-    width: 100px;
-    height: 100px;
+    top: 25px;
+    right: 25px;
+    width: 75px;
+    height: 75px;
   }
 `;
 
