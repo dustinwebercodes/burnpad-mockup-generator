@@ -16,8 +16,10 @@ const AppContainer = styled.div`
   gap: 20px;
 
   @media (max-width: 768px) {
-    padding: 10px;
+    padding: 15px;
     gap: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 `;
 
@@ -25,6 +27,7 @@ const MainContent = styled.main`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  width: 100%;
 `;
 
 const TopSection = styled.div`
@@ -36,6 +39,9 @@ const TopSection = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
 `;
 
@@ -44,31 +50,40 @@ const ControlPanel = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 
   @media (max-width: 768px) {
     flex: none;
     width: 100%;
-    max-width: 400px;
+    max-width: 100%;
+    order: 2;
+    padding: 0;
+    align-items: center;
   }
 `;
 
 const Section = styled.section`
   margin-bottom: 1rem;
   width: 100%;
+  max-width: 400px;
 
   h3 {
     color: #2c3e50;
     margin-bottom: 1rem;
     text-align: left;
+    padding: 0 5px;
   }
 
   @media (max-width: 768px) {
     margin-bottom: 0.5rem;
+    width: 100%;
   }
 `;
 
 const FileUpload = styled.div`
   width: 100%;
+  padding: 0 5px;
+  box-sizing: border-box;
   
   input {
     width: 100%;
@@ -78,10 +93,15 @@ const FileUpload = styled.div`
     background-color: #f8fafc;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-sizing: border-box;
 
     &:hover {
       border-color: #718096;
       background-color: #edf2f7;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0.75rem;
     }
   }
 `;
@@ -91,12 +111,13 @@ const PreviewSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  min-width: 0; // Important for flex item sizing
+  min-width: 0;
   padding: 1rem;
 
   @media (max-width: 768px) {
     width: 100%;
     padding: 0;
+    order: 1; // Move preview above controls on mobile
   }
 `;
 
@@ -106,19 +127,15 @@ const PreviewWrapper = styled.div`
   margin: 0 auto;
 
   @media (max-width: 768px) {
-    width: 90vw;
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
-
-  @media (max-width: 480px) {
-    width: 95vw;
-    transform: scale(0.8);
+    width: 100%;
+    max-width: 100%;
+    transform: none;
   }
 `;
 
 const Input = styled.input`
   width: 100%;
+  max-width: 400px;
   padding: 0.8rem;
   border: 1px solid #e1e4e8;
   border-radius: 6px;
@@ -126,26 +143,35 @@ const Input = styled.input`
   font-size: 1rem;
   background-color: white;
   color: #000000;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
     border-color: #4299e1;
     box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
   }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+    padding: 0.75rem;
+    width: calc(100% - 10px);
+  }
 `;
 
 const Button = styled.button`
-  background-color: #000000;
-  color: white;
+  width: 100%;
+  max-width: 400px;
   padding: 0.8rem 1.5rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  width: 100%;
+  background-color: #000000;
+  color: white;
   transition: all 0.2s ease;
   margin-bottom: 1rem;
+  box-sizing: border-box;
 
   &:hover {
     background-color: #333333;
@@ -157,8 +183,9 @@ const Button = styled.button`
   }
 
   @media (max-width: 768px) {
-    max-width: 100%;
-    margin-bottom: 0.5rem;
+    padding: 1rem 1.5rem;
+    font-size: 16px;
+    width: calc(100% - 10px);
   }
 `;
 
@@ -192,6 +219,8 @@ const PreviewContainer = styled.div`
 `;
 
 const Instructions = styled.div`
+  width: 100%;
+  max-width: 400px;
   margin-top: 2rem;
   padding: 1rem;
   background-color: #f8fafc;
@@ -199,10 +228,13 @@ const Instructions = styled.div`
   font-size: 0.9rem;
   color: #4a5568;
   text-align: left;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
-    margin-top: 1rem;
+    margin: 1rem auto 0;
     padding: 0.75rem;
+    font-size: 0.85rem;
+    width: calc(100% - 10px);
   }
 
   h3 {
@@ -249,6 +281,7 @@ const Instructions = styled.div`
 
     @media (max-width: 768px) {
       margin-top: 0.5rem;
+      font-size: 0.8rem;
     }
   }
 `;

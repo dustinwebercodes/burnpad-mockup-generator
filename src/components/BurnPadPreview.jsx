@@ -42,21 +42,29 @@ const PreviewContainer = styled.div`
   width: 100%;
   position: relative;
   background-color: white;
-  aspect-ratio: 740 / 775; // Maintain the original aspect ratio
-  padding: 2px; // Add small padding to prevent edge cutoff
+  aspect-ratio: 740 / 775;
+  padding: 2px;
+
+  @media (max-width: 768px) {
+    aspect-ratio: 740 / 775;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
 `;
 
 const CorduraSection = styled.div`
   width: 100%;
-  height: 58%; // 450px / 775px ≈ 58%
+  height: 58%;
   position: relative;
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
   border-radius: 5px 5px 0 0;
+  box-sizing: border-box;
   
   @media (max-width: 768px) {
-    width: 740px;
-    height: 450px;
+    height: 58%;
+    border-width: 1.5px;
   }
 `;
 
@@ -82,15 +90,26 @@ const CorduraLines = styled.div`
   &::after {
     right: 30px;
   }
+
+  @media (max-width: 768px) {
+    &::before, &::after {
+      border-left-width: 1.5px;
+    }
+  }
 `;
 
 const BaseSection = styled.div`
   width: 100%;
-  height: 42%; // 325px / 775px ≈ 42%
+  height: 42%;
   position: relative;
   background-color: ${props => props.color};
   border: 2px solid ${props => getStitchColor(props.color)};
-  box-sizing: border-box; // Ensure border is included in width calculation
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    height: 42%;
+    border-width: 1.5px;
+  }
 `;
 
 const DashedLines = styled.div`
@@ -100,7 +119,7 @@ const DashedLines = styled.div`
   right: 30px;
   bottom: 30px;
   border: 2px dashed ${props => getStitchColor(props.color)};
-  box-sizing: border-box; // Ensure border is included in width calculation
+  box-sizing: border-box;
 
   &::before, &::after {
     content: '';
@@ -108,7 +127,7 @@ const DashedLines = styled.div`
     top: 0;
     bottom: 0;
     border-left: 2px dashed ${props => getStitchColor(props.color)};
-    box-sizing: border-box; // Ensure border is included in width calculation
+    box-sizing: border-box;
   }
 
   &::before {
@@ -117,6 +136,18 @@ const DashedLines = styled.div`
 
   &::after {
     right: -2px;
+  }
+
+  @media (max-width: 768px) {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border-width: 1.5px;
+
+    &::before, &::after {
+      border-left-width: 1.5px;
+    }
   }
 `;
 
@@ -127,7 +158,6 @@ const HorizontalLines = styled.div`
   right: 30px;
   bottom: 0;
 
-  /* First line 30px below top stitch line */
   &::before {
     content: '';
     position: absolute;
@@ -137,7 +167,6 @@ const HorizontalLines = styled.div`
     border-top: 2px dashed ${props => getStitchColor(props.color)};
   }
 
-  /* Middle line */
   &::after {
     content: '';
     position: absolute;
@@ -145,6 +174,23 @@ const HorizontalLines = styled.div`
     right: 0;
     top: 150px;
     border-top: 2px dashed ${props => getStitchColor(props.color)};
+  }
+
+  @media (max-width: 768px) {
+    left: 20px;
+    right: 20px;
+
+    &::before, &::after {
+      border-top-width: 1.5px;
+    }
+
+    &::before {
+      top: 40px;
+    }
+
+    &::after {
+      top: 100px;
+    }
   }
 `;
 
@@ -154,6 +200,13 @@ const LastHorizontalLine = styled.div`
   right: 30px;
   top: 240px;
   border-top: 2px dashed ${props => getStitchColor(props.color)};
+
+  @media (max-width: 768px) {
+    left: 20px;
+    right: 20px;
+    top: 160px;
+    border-top-width: 1.5px;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -171,6 +224,13 @@ const LogoContainer = styled.div`
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    top: 30px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
   }
 `;
 

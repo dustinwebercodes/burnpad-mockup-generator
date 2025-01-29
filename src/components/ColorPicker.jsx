@@ -2,39 +2,39 @@ import styled from 'styled-components';
 
 const ColorPickerContainer = styled.div`
   width: 100%;
+  max-width: 400px;
   
   h4 {
     color: #2c3e50;
     margin-bottom: 1rem;
     font-size: 1.1rem;
+    padding: 0 5px;
 
     @media (max-width: 768px) {
-      text-align: center;
+      text-align: left;
       margin-bottom: 0.8rem;
+      font-size: 1rem;
     }
   }
 `;
 
 const ColorGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 40px);
+  grid-template-columns: repeat(auto-fit, 40px);
   gap: 8px;
-  max-width: 400px;
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.75rem;
   background-color: #f8fafc;
   border-radius: 8px;
+  box-sizing: border-box;
+  justify-content: center;
 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(6, 40px);
+    grid-template-columns: repeat(auto-fit, minmax(35px, 1fr));
     gap: 6px;
-    padding: 0.4rem;
-    max-width: 100%;
-    justify-content: center;
-  }
-
-  @media (max-width: 480px) {
-    grid-template-columns: repeat(4, 40px);
-    gap: 4px;
+    padding: 0.75rem;
+    width: calc(100% - 10px);
+    margin: 0 auto;
   }
 `;
 
@@ -43,6 +43,10 @@ const SwatchContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 4px;
+
+  @media (max-width: 768px) {
+    gap: 3px;
+  }
 `;
 
 const ColorSwatch = styled.button`
@@ -65,6 +69,12 @@ const ColorSwatch = styled.button`
   &:active {
     transform: scale(0.95);
   }
+
+  @media (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+    border-width: 1.5px;
+  }
 `;
 
 const ColorText = styled.span`
@@ -73,6 +83,11 @@ const ColorText = styled.span`
   text-align: center;
   visibility: ${props => props.selected ? 'visible' : 'hidden'};
   height: 14px;
+
+  @media (max-width: 768px) {
+    font-size: 0.65rem;
+    height: 12px;
+  }
 `;
 
 // Vinyl color swatches
